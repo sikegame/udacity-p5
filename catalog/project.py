@@ -411,7 +411,7 @@ def show_login():
 @csrf.exempt
 def g_connect():
     client_id = json.loads(
-        open('client_secrets.json', 'r').read())['web']['client_id']
+        open('catalog/client_secrets.json', 'r').read())['web']['client_id']
     # Validate state token
     if request.args.get('state') != login_session['state']:
         response = make_response(json.dumps('Invalid state parameter.'), 401)
@@ -422,7 +422,7 @@ def g_connect():
 
     try:
         # Upgrade the authorization code into a credentials object
-        oauth_flow = flow_from_clientsecrets('client_secrets.json', scope='')
+        oauth_flow = flow_from_clientsecrets('catalog/client_secrets.json', scope='')
         oauth_flow.redirect_uri = 'postmessage'
         credentials = oauth_flow.step2_exchange(code)
     except FlowExchangeError:
