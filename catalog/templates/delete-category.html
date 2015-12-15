@@ -1,0 +1,13 @@
+{% include "header.html" %}
+
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h1 class="page-header">Delete Category</h1>
+    <p class="lead">Are you sure you want to delete <i>{{ category.name }}</i> category?</p>
+    <form method="POST">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+        <button type="submit" class="btn btn-primary">Detele</button>
+        <a href="{{ url_for('show_my_categories') }}">Cancel</a>
+    </form>
+</div>
+
+{% include "footer.html" %}
