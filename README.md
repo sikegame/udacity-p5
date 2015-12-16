@@ -17,21 +17,37 @@ This is a simple web-based product catalog with the social media user authentica
 
 - Python 2.7
 - Flask version 0.9
+- SQL Alchemy
+- Google oAuth 2.0
+- Httplib2
 - Werkzung WSGI utility library
 - dict2xml library
 - Flask-SeaSurf library
 
 ## Installation
 
-1. Install Python 2.7.
-2. Install Flask 0.9 by running `python pip install flask==0.9`.
-3. Install all the dependent libraries from the command line.
-	- Run `python pip install Werkzeug`.
-	- Run `python pip install dict2xml`.
-	- Run `python pip install flask-seasurf`.
-4. Move to the location of the folder containing `project.py`.
-5. Run `python project.py` from the command line.
-6. Open a browser and type http://localhost:5000 in the address bar.
+1. Update repo and install GIT software
+	- Run `sudo apt-get update`
+	- Run `sudo apt-get install -y git`
+2. Create a folder to store this web app
+	- Run `cd /var/www`
+	- Run `git clone https://github.com/sikegame/udacity-p5.git`
+	- You may need to play with file/folder permissions
+3. Move to Catalog App folder
+	- Run `cd udacity-p5/installation`
+	- Run `. config.sh`
+	- This script will install all the necessary packages and modules
+	- Once the process finishes, it will prompt to set password for postgres account
+4. Configure Postgres Database
+	- Run `su postgres`
+	- Enter password for postgres account
+	- Run `psql`
+	- Run `\i /var/www/udacity-p5/installation/catalog.sql`
+	- Run `\q`
+	- Run 'exit'
+5. Restart Postgres service
+	- Run `sudo service postgresql restart`
+6. Open your browser and access http://ec2-52-34-152-224.us-west-2.compute.amazonaws.com/
 
 ## Screenshot
 

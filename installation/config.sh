@@ -14,7 +14,9 @@ curl -L http://bit.ly/glances | /bin/bash
 sudo pip install -r requirements.txt
 
 # 5. Copy configuration files and restart Apache
-
+sudo cp /var/www/udacity-p5/installation/catalog.conf /etc/apache2/sites-enabled/catalog.conf
+sudo a2ensite catalog.conf
+sudo apache2ctl restart
 
 # 6 Set password for Postgres account
 sudo passwd postgres
