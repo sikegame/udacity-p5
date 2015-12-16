@@ -62,7 +62,7 @@ session = DBSession()
 
 
 # System file path
-ABS_PATH = "/var/www/udacity-project-3/catalog/"
+ABS_PATH = "catalog/"
 
 
 def login_required(f):
