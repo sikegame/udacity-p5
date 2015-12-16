@@ -504,9 +504,9 @@ def fb_connect():
     print "access token received %s " % access_token
 
     app_id = json.loads(
-        open(ABS_PATH + 'client_secrets.json', 'r').read())['facebook']['app_id']
+        open(ABS_PATH + 'secrets.json', 'r').read())['facebook']['app_id']
     app_secret = json.loads(
-        open(ABS_PATH + 'client_secrets.json', 'r').read())['facebook']['app_secret']
+        open(ABS_PATH + 'secrets.json', 'r').read())['facebook']['app_secret']
     url = 'https://graph.facebook.com/oauth/access_token' \
           '?grant_type=fb_exchange_token&client_id=%s' \
           '&client_secret=%s&fb_exchange_token=%s' \
@@ -564,7 +564,7 @@ def git_connect():
 
     # Prepare necessary information
     code = request.args.get('code')
-    result = json.loads(ABS_PATH + 'client_secrets.json', 'r').read()['github']
+    result = json.loads(ABS_PATH + 'secrets.json', 'r').read()['github']
     client_id = result['client_id']
     client_secret = result['client_secret']
 
