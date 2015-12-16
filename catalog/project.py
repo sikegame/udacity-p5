@@ -668,7 +668,7 @@ def fb_disconnect():
 
 def git_disconnect():
     client_id = json.loads(
-        open(ABS_PATH + 'client_secrets.json', 'r').read())['github']['client_id']
+        open(ABS_PATH + 'secrets.json', 'r').read())['github']['client_id']
     url = 'https://api.github.com/applications/%s/tokens/%s'\
           % (client_id, login_session['access_token'])
     h = httplib2.Http()
