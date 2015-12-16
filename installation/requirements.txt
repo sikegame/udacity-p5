@@ -5,3 +5,4 @@ flask-seasurf
 httplib2
 SQLAlchemy
 oauth2client
+glances
