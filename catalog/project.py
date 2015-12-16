@@ -564,9 +564,9 @@ def git_connect():
 
     # Prepare necessary information
     code = request.args.get('code')
-    result = json.loads('/var/www/udacity-project-3/catalog/secrets.json', 'r').read()['github']
-    client_id = result['client_id']
-    client_secret = result['client_secret']
+    # result = json.loads('/var/www/udacity-project-3/catalog/secrets.json', 'r').read()['github']
+    client_id = "2664fae95b46c436b32a"
+    client_secret = "5cd490f838a1a9cd4e00a6417cedc100363d8874"
 
     # Get a token
     url = 'https://github.com/login/oauth/access_token?client_id=%s' \
