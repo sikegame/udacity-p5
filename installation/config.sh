@@ -1,22 +1,18 @@
 #! /bin/bash
 
-# 1. Update current repo and upgrade packages
-sudo apt-get update -y
-sudo apt-get upgrade -y
-
-# 2. Install necessary Ubuntu packages
+# 1. Install necessary Ubuntu packages
 sudo apt-get install -y apache2 libapache2-mod-wsgi postgresql python-pip fail2ban python-psycopg2
 
-# 3. Install Glances for monitoring
+# 2. Install Glances for monitoring
 curl -L http://bit.ly/glances | /bin/bash
 
-# 4. Install required Python modules
+# 3. Install required Python modules
 sudo pip install -r requirements.txt
 
-# 5. Copy configuration files and restart Apache
+# 4. Copy configuration files and restart Apache
 sudo cp /var/www/udacity-p5/installation/catalog.conf /etc/apache2/sites-enabled/catalog.conf
 sudo a2ensite catalog.conf
 sudo apache2ctl restart
 
-# 6 Set password for Postgres account
+# 5 Set password for Postgres account
 sudo passwd postgres
