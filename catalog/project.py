@@ -564,7 +564,7 @@ def git_connect():
 
     # Prepare necessary information
     code = request.args.get('code')
-    result = json.loads(ABS_PATH + 'secrets.json', 'r').read()['github']
+    result = json.loads('/var/www/udacity-project-3/catalog/secrets.json', 'r').read()['github']
     client_id = result['client_id']
     client_secret = result['client_secret']
 
