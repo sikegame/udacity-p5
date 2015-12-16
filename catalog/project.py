@@ -10,7 +10,6 @@ Date: 2015-10-12
 """
 
 # Default libraries
-import os
 import random
 import string
 import json
@@ -60,6 +59,10 @@ engine = create_engine(URL(**settings.DATABASE))
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
+
+
+# System file path
+ABS_PATH = "/var/www/udacity-project-3/catalog/"
 
 
 def login_required(f):
@@ -257,7 +260,7 @@ def add_product():
         filename = ''
         if image and allowed_file(image.filename):
             filename = secure_filename(image.filename)
-            image.save(os.path.abspath(app.config['UPLOAD_FOLDER'] + filename))
+            image.save(ABS_PATH + app.config['UPLOAD_FOLDER'] + filename)
 
         # Check for required inputs
         if name and category:
@@ -303,8 +306,7 @@ def edit_product(p_id):
             image = request.files['file']
             if image and allowed_file(image.filename):
                 filename = secure_filename(image.filename)
-                image.save(os.path.abspath
-                           (app.config['UPLOAD_FOLDER'] + filename))
+                image.save(ABS_PATH + app.config['UPLOAD_FOLDER'] + filename)
                 product.image = filename
 
         # Update the database
@@ -411,7 +413,7 @@ def show_login():
 @csrf.exempt
 def g_connect():
     client_id = json.loads(
-        open(os.path.abspath('client_secrets.json'), 'r').read())['web']['client_id']
+        open(ABS_PATH + 'client_secrets.json', 'r').read())['web']['client_id']
     # Validate state token
     if request.args.get('state') != login_session['state']:
         response = make_response(json.dumps('Invalid state parameter.'), 401)
@@ -422,7 +424,7 @@ def g_connect():
 
     try:
         # Upgrade the authorization code into a credentials object
-        oauth_flow = flow_from_clientsecrets(os.path.abspath('client_secrets.json'), scope='')
+        oauth_flow = flow_from_clientsecrets(ABS_PATH + 'client_secrets.json', scope='')
         oauth_flow.redirect_uri = 'postmessage'
         credentials = oauth_flow.step2_exchange(code)
     except FlowExchangeError:
@@ -502,9 +504,9 @@ def fb_connect():
     print "access token received %s " % access_token
 
     app_id = json.loads(
-        open(os.path.abspath('client_secrets.json'), 'r').read())['facebook']['app_id']
+        open(ABS_PATH + 'client_secrets.json', 'r').read())['facebook']['app_id']
     app_secret = json.loads(
-        open(os.path.abspath('client_secrets.json'), 'r').read())['facebook']['app_secret']
+        open(ABS_PATH + 'client_secrets.json', 'r').read())['facebook']['app_secret']
     url = 'https://graph.facebook.com/oauth/access_token' \
           '?grant_type=fb_exchange_token&client_id=%s' \
           '&client_secret=%s&fb_exchange_token=%s' \
@@ -562,7 +564,7 @@ def git_connect():
 
     # Prepare necessary information
     code = request.args.get('code')
-    result = json.loads(open(os.path.abspath('client_secrets.json'), 'r').read())['github']
+    result = json.loads(ABS_PATH + 'client_secrets.json', 'r').read()['github']
     client_id = result['client_id']
     client_secret = result['client_secret']
 
@@ -666,7 +668,7 @@ def fb_disconnect():
 
 def git_disconnect():
     client_id = json.loads(
-        open(os.path.abspath('client_secrets.json'), 'r').read())['github']['client_id']
+        open(ABS_PATH + 'client_secrets.json', 'r').read())['github']['client_id']
     url = 'https://api.github.com/applications/%s/tokens/%s'\
           % (client_id, login_session['access_token'])
     h = httplib2.Http()
@@ -735,4 +737,4 @@ def forbidden(e):
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
     app.debug = True
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0')
