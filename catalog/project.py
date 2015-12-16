@@ -679,20 +679,6 @@ def git_disconnect():
 # User Helper Functions
 
 
-# TODO: delete this before production
-@app.route('/debug')
-def create_dummy_user():
-    login_session['username'] = "Dummy JJ"
-    login_session['email'] = "dummy@dummy.com"
-    login_session['picture'] = "test.jpg"
-    login_session['provider'] = "Dummy Provider"
-    user_id = get_user_id('dummy@dummy.com', 'Dummy Provider')
-    if not user_id:
-        user_id = create_user(login_session)
-    login_session['user_id'] = user_id
-    return redirect(url_for('show_homepage'))
-
-
 def create_user(login_session):
     new_user = User(name=login_session['username'],
                     email=login_session['email'],
@@ -736,5 +722,4 @@ def forbidden(e):
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
-    app.debug = True
     app.run(host='0.0.0.0')
